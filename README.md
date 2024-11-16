@@ -31,6 +31,18 @@ curl -Lo mythical-pve.deb https://github.com/mythicalltd/mythicalpve/releases/la
 dpkg -i mythical-pve.deb
 ```
 
+### Change License Name
+
+1. Edit the files
+```bash
+nano /etc/mythical-pve/ProductName /etc/mythical-pve/PBSMessage
+```
+2. Restart the server
+```bash
+systemctl restart mythical-pve.timer
+systemctl restart mythical-pve.service
+```
+
 Notes:
 
 After installation, please refrain yourself from clicking the "check" button on the "Subscription" page. It will invalidate the cache and temporary revert your instance into an unlicensed status.
