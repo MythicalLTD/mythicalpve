@@ -39,8 +39,7 @@ nano /etc/mythical-pve/ProductName /etc/mythical-pve/PBSMessage
 ```
 2. Restart the server
 ```bash
-systemctl restart mythical-pve.timer
-systemctl restart mythical-pve.service
+systemctl restart mythical-pve.timer mythical-pve.service
 ```
 
 Notes:
