@@ -1,7 +1,7 @@
-name: "pve-fake-subscription"
+name: "mythical-pve"
 arch: "all"
 platform: "linux"
-version: "0.0.11"
+version: "1.0.0"
 version_schema: "semver"
 version_metadata: "git"
 
@@ -10,27 +10,27 @@ release: 1
 section: "admin"
 priority: "optional"
 
-maintainer: "Nobody <nobody@example.com>"
+maintainer: "NaysKutzu <abuse@mythicalsystems.xyz>"
 
 depends:
 - python3
 description: |
-  Pollute the subscription cache of Proxmox VE (>=5.0), Proxmox Mail Gateway (>=5.0) & Proxmox Backup Server (>=1.0) so it won't alert you on dashboard login
+  An legit way to activate proxmox!
 vendor: "none"
-homepage: "https://github.com/Jamesits/pve-fake-subscription"
-license: "GLWTS(Good Luck With That Shit) Public License"
+homepage: "https://github.com/MythicalLTD/mythicalpve"
+license: "GLWTS"
 
 contents:
-- src: "./usr/bin/pve-fake-subscription"
-  dst: "/usr/bin/pve-fake-subscription"
+- src: "./usr/bin/mythical-pve"
+  dst: "/usr/bin/mythical-pve"
   file_info:
     mode: 0755
 - src: "./usr/lib/systemd"
   dst: "/usr/lib/systemd"
   file_info:
     mode: 0644
-- src: "./usr/share/doc/pve-fake-subscription"
-  dst: "/usr/share/doc/pve-fake-subscription"
+- src: "./usr/share/doc/mythical-pve"
+  dst: "/usr/share/doc/mythical-pve"
   file_info:
     mode: 0644
 

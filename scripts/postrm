@@ -7,7 +7,7 @@ after_remove() {
     rm -f /etc/pmg/subscription
     rm -f /etc/proxmox-backup/subscription
 
-    rm -f /etc/cron.hourly/pve-fake-subscription
+    rm -f /etc/cron.hourly/mythical-pve
 }
 
 after_purge() {

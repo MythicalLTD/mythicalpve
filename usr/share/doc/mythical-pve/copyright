@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: pve-fake-subscription
-Source: https://github.com/Jamesits/pve-fake-subscription
+Upstream-Name: mythical-pve
+Source: https://github.com/Jamesits/mythical-pve
 
 Files: *
 Copyright: 2019 Nobody

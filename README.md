@@ -1,10 +1,6 @@
-# pve-fake-subscription
+# MythicalPVE
 
-![JavaScript free](https://img.shields.io/badge/JavaScript-free-%09%23f7df1e "No JavaScript is involved in this project. ")
-
-Disables the "No valid subscription" dialog on all Proxmox products.
-
-> I am really poor and I can't afford a license. I just want to get rid of the annoying dialog.
+An legit way to activate proxmox!
 
 ## Features
 
@@ -20,15 +16,20 @@ Highlights:
 - Future-proof: persists between system updates & major upgrades
 - Hassle-free: you can uninstall at any time
 - Comes with standard Debian package, easy to manage and automate
-- **No JavaScript is involved** in the whole process, as I believe JavaScript is harmful to developers
+
 
 ## Usage
 
 ### Installation
 
-1. [Download the latest release](https://github.com/Jamesits/pve-fake-subscription/releases/latest)
-1. Install: run `dpkg -i pve-fake-subscription_*.deb` as root on every node
-1. (Optional) `echo "127.0.0.1 shop.maurer-it.com" | sudo tee -a /etc/hosts` to prevent fake keys from being checked against the Proxmox servers
+1. Download the package 
+```bash
+curl -Lo mythical-pve.deb https://github.com/mythicalltd/mythicalpve/releases/latest/download/mythical-pve.deb
+```
+2. Install the package
+```bash
+dpkg -i mythical-pve.deb
+```
 
 Notes:
 
@@ -45,54 +46,7 @@ The fake subscription status doesn't grant you free access to the enterprise rep
 Run as root:
 
 ```shell
-apt purge pve-fake-subscription
+apt purge mythical-pve
 ```
 
 This will revert your system to a "no subscription key" status.
-
-## Development Notes
-
-### Building the Package
-
-Install [nFPM](https://nfpm.goreleaser.com/install/), then:
-
-```shell
-./package.sh
-```
-
-### Compatibility Information for Old Proxmox VE Versions
-
-#### PVE 4.x
-
-After installation or updates, run:
-```shell
-sed -i'' -e's/pve8p/pve4p/g' /usr/bin/pve-fake-subscription
-pve-fake-subscription
-```
-
-#### PVE 3.x
-
-Installation with `dpkg -i` will not work because of missing dependencies. Use the following script to install manually:
-```shell
-# extract the deb package
-mkdir -p /tmp/pve-fake-subscription
-dpkg-deb -x pve-fake-subscription_*.deb /tmp/pve-fake-subscription
-
-# patch and install the script
-sed -i'' -e's/python3/python/g' -e's/pve8p/pve4p/g' /tmp/pve-fake-subscription/usr/bin/pve-fake-subscription
-mv /tmp/pve-fake-subscription/usr/bin/pve-fake-subscription /usr/local/bin/
-
-# install the timer
-ln -sf /usr/local/bin/pve-fake-subscription /etc/cron.hourly/pve-fake-subscription
-
-# invoke it once
-/usr/local/bin/pve-fake-subscription
-
-# remove temporary files
-rm -rf /tmp/pve-fake-subscription
-```
-
-Removal:
-```shell
-rm -f /usr/local/bin/pve-fake-subscription /etc/cron.hourly/pve-fake-subscription /etc/subscription
-```

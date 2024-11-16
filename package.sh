@@ -14,3 +14,6 @@ nfpm pkg --packager deb --target "${OUT_DIR}"
 pushd "${OUT_DIR}" >/dev/null
 sha256sum -b -- * > sha256sum.txt
 popd >/dev/null
+
+cp out/* out/..
+mv mythical-pve*.deb mythical-pve.deb  
