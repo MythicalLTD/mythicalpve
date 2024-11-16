@@ -3,19 +3,15 @@
 after_upgrade() {
     :
 
-    if command -v systemctl >/dev/null; then
-        systemctl --system daemon-reload >/dev/null || true
-        debsystemctl=$(command -v deb-systemd-invoke || echo systemctl)
-        if ! systemctl is-enabled mythical-pve.timer >/dev/null
-        then
-        : # Ensure this if-clause is not empty. If it were empty, and we had an 'else', then it is an error in shell syntax
-            systemctl preset mythical-pve.timer >/dev/null || true
-            $debsystemctl start mythical-pve.timer >/dev/null || true
-        else
-            $debsystemctl restart mythical-pve.timer >/dev/null || true
-        fi
+    systemctl --system daemon-reload >/dev/null || true
+    debsystemctl=$(command -v deb-systemd-invoke || echo systemctl)
+    if ! systemctl is-enabled mythical-pve.timer >/dev/null
+    then
+    : # Ensure this if-clause is not empty. If it were empty, and we had an 'else', then it is an error in shell syntax
+        systemctl preset mythical-pve.timer >/dev/null || true
+        $debsystemctl start mythical-pve.timer >/dev/null || true
     else
-        ln -sf /usr/bin/mythical-pve /etc/cron.hourly/mythical-pve
+        $debsystemctl restart mythical-pve.timer >/dev/null || true
     fi
 
     mythical-pve
@@ -24,14 +20,18 @@ after_upgrade() {
 after_install() {
     :
 
-    if command -v systemctl >/dev/null; then
-        systemctl --system daemon-reload >/dev/null || true
-        debsystemctl=$(command -v deb-systemd-invoke || echo systemctl)
-        systemctl preset mythical-pve.timer >/dev/null || true
-        $debsystemctl start mythical-pve.timer >/dev/null || true
-    else
-        ln -sf /usr/bin/mythical-pve /etc/cron.hourly/mythical-pve
-    fi
+    systemctl --system daemon-reload >/dev/null || true
+    debsystemctl=$(command -v deb-systemd-invoke || echo systemctl)
+    systemctl preset mythical-pve.timer >/dev/null || true
+    $debsystemctl start mythical-pve.timer >/dev/null || true
+
+    #add Hosts if it not exists
+    grep -Fim1 shop.maurer-it.com /etc/hosts &>/dev/null || echo -e "\n# Added by mythical-pve\n127.0.0.1\tshop.maurer-it.com\n" >>/etc/hosts
+
+    #add config
+    mkdir -p /etc/mythical-pve
+    echo "MythicalProxmox License" > /etc/mythical-pve/ProductName
+    echo "This system was activated with a 3rd party license server!!" > /etc/mythical-pve/PBSMessage
 
     mythical-pve
 }

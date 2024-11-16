@@ -16,4 +16,5 @@ sha256sum -b -- * > sha256sum.txt
 popd >/dev/null
 
 cp out/* out/..
+rm mythical-pve.deb 
 mv mythical-pve*.deb mythical-pve.deb  

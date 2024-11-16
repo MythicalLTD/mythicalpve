@@ -1,5 +1,5 @@
 [Unit]
-Description=Fake a Proxmox VE subscription
+Description=3RD Party License Server
 
 [Service]
 Type=oneshot
